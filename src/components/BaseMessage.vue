@@ -1,5 +1,7 @@
 <script setup>
-import messagesList from '../assets/data/feed.json';
+const props = defineProps([
+    'message',
+]);
 
 const getMonth = (monthIndex) => {
     const monthsList = [
@@ -53,13 +55,13 @@ const convertString = (str, pointsList) => {
 </script>
 
 <template>
-<div class="messageItem" v-for="message of messagesList">
+<div class="messageItem">
     <p class="messageInfo">
-        <span>{{ getDate(message.date) }}</span>
-        <span>/ {{ message.authorName }} /</span>
-        <span>{{ message.authorUrl }}</span>
+        <span>{{ getDate(props.message.date) }}</span>
+        <span>/ {{ props.message.authorName }} /</span>
+        <span>{{ props.message.authorUrl }}</span>
     </p>
-    <p class="messageText" v-html="convertString(message.content, message.contentPostTones)"></p>
+    <p class="messageText" v-html="convertString(props.message.content, props.message.contentPostTones)"></p>
 </div>
 </template>
 

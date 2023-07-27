@@ -3,8 +3,13 @@ import TheFeed from '@/components/TheFeed.vue';
 </script>
 
 <template>
-<TheFeed />
+<div class="wrapper">
+  <TheFeed />
+</div>
 </template>
 
 <style scoped>
+.wrapper {
+  padding: 30px 0;
+}
 </style>

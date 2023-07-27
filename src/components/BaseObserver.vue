@@ -3,7 +3,9 @@ import { onMounted, ref } from 'vue';
 
 const props = defineProps([
     'doIt',
-])
+    'isLoading',
+    'isShow',
+]);
 
 const observerLoadMore = ref(null);
 
@@ -31,11 +33,34 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="observerLoadMore" ref="observerLoadMore"></div>
+<div class="observerLoadMore" ref="observerLoadMore" v-if="isShow">
+    <div class="loadingIndicator" v-if="isLoading"></div>
+</div>
 </template>
 
 <style scoped>
 .observerLoadMore {
-    height: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.loadingIndicator {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 10px solid #0000ff;
+    border-bottom: 10px solid transparent;
+    animation: rotate 1s linear 0s infinite normal forwards;
 }
 </style>

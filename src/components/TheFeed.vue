@@ -1,9 +1,7 @@
 <script setup>
-import TheFeed from '@/components/TheFeed.vue';
 </script>
 
 <template>
-<TheFeed />
 </template>
 
 <style scoped>

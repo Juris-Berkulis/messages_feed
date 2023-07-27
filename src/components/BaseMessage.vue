@@ -1,6 +1,36 @@
 <script setup>
 import messagesList from '../assets/data/feed.json';
 
+const getMonth = (monthIndex) => {
+    const monthsList = [
+        'января',
+        'февраля',
+        'марта',
+        'апреля',
+        'мая',
+        'июня',
+        'июля',
+        'августа',
+        'сентября',
+        'октября',
+        'ноября',
+        'декабря',
+    ];
+
+    return monthsList[monthIndex]
+};
+
+const getDate = (messageDate) => {
+    const date = new Date(messageDate);
+    const fullYear = date.getFullYear();
+    const month = getMonth(date.getMonth());
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    return `${hours}:${minutes}, ${day} ${month} ${fullYear} г.`
+};
+
 const highlightByColor = (strPart, tone) => {
     return `<mark style="background-color: rgb(${tone < 0 ? `255, ${(1 + tone) * 255}` : `${(1 - tone) * 255}, 255`}, 0);">${strPart}</mark>`
 };
@@ -25,7 +55,7 @@ const convertString = (str, pointsList) => {
 <template>
 <div class="messageItem" v-for="message of messagesList">
     <p class="messageInfo">
-        <span>{{ message.date }}</span>
+        <span>{{ getDate(message.date) }}</span>
         <span>/ {{ message.authorName }} /</span>
         <span>{{ message.authorUrl }}</span>
     </p>

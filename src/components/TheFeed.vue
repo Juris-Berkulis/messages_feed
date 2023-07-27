@@ -2,6 +2,26 @@
 import messagesList from '../assets/data/feed.json';
 
 console.log(messagesList)
+
+const highlightByColor = (strPart, tone) => {
+    return `<mark style="background-color: rgb(${tone < 0 ? `255, ${(1 + tone) * 255}` : `${(1 - tone) * 255}, 255`}, 0);">${strPart}</mark>`
+};
+
+const convertString = (str, pointsList) => {
+    let strIndex = 0;
+    let newStr = '';
+
+    pointsList.forEach(pointItem => {
+        newStr += str.slice(strIndex, pointItem.position);
+        strIndex = pointItem.position + pointItem.length;
+        const strPart = str.slice(pointItem.position, strIndex);
+        newStr += highlightByColor(strPart, pointItem.tone);
+    });
+
+    newStr += str.slice(strIndex);
+
+    return newStr
+};
 </script>
 
 <template>
@@ -12,7 +32,7 @@ console.log(messagesList)
             <span>/ {{ message.authorName }} /</span>
             <span>{{ message.authorUrl }}</span>
         </p>
-        <p class="messageText">{{ message.content }}</p>
+        <p class="messageText" v-html="convertString(message.content, message.contentPostTones)"></p>
     </div>
 </div>
 </template>
